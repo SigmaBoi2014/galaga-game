@@ -2,6 +2,7 @@ import pgzrun
 WIDTH=470
 
 HEIGHT=470
+score=0
 bull=[]
 bugs=[]
 ship=Actor("galaga")
@@ -21,6 +22,7 @@ def on_key_down(key):
 
 
 def update():
+    global score
     if(keyboard.left):
         ship.x-=10
         if(ship.x<0):
@@ -32,6 +34,11 @@ def update():
 
     for b in bull:
         b.y-=5
+        for i in bugs:
+            if i.colliderect(b):
+                bugs.remove(i)
+                bull.remove(b)
+                score+=10
 def draw():
     screen.fill("blue")
     ship.draw()
@@ -39,7 +46,7 @@ def draw():
         i.draw()
     for b in bugs:
         b.draw()
-    screen.draw.text("0",(0,0))
+    screen.draw.text(str (score),(0,0))
 
 
 pgzrun.go()
