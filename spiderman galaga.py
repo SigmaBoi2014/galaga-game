@@ -2,6 +2,7 @@ import pgzrun
 WIDTH=470
 
 HEIGHT=470 
+score=0
 web=[]
 venoms=[]
 spider=Actor("spiderman")
@@ -13,7 +14,7 @@ for i in range(5):
     venom.y = 80
     venoms.append(venom)
 def on_key_down(key):
-    if key == keys.SPACE:
+    if key == key .SPACE:
         we=Actor("web")
         we.x = spider.x
         we.y = spider.y-30
@@ -21,6 +22,7 @@ def on_key_down(key):
 
 
 def update():
+    global score
     if(keyboard.left):
         spider.x-=10
         if(spider.x<0):
@@ -30,16 +32,21 @@ def update():
         if(spider.x>470):
             spider.x=420
 
-    for b in web:
-        b.y-=5
+    for c in web:
+        c.y-=15
+        for i in venoms:
+                if i.colliderect(c):
+                    venoms.remove(i)
+                    web.remove(c)
+                    score+=10
 def draw():
-    screen.blit("newyork",(0,0))
+    screen.fill("sky blue")
     spider.draw()
     for i in web:
         i.draw()
     for b in venoms:
         b.draw()
-    screen.draw.text("0",(0,0))
+    screen.draw.text(str(score),(0,0))
 
 
 pgzrun.go()
